@@ -1,5 +1,6 @@
 import torch,torchvision,cv2
 from PIL import Image
+from collections import OrderedDict
 from waternet.waternet.net import WaterNet
 from waternet.waternet.data import transform
 import numpy as np
@@ -10,7 +11,15 @@ def load_model(device:torch.device,model_type,
     ckpt=torch.load(f=ckpt_dir,
                     map_location=device,weights_only=True)
     print(ckpt.keys())
-    model.load_state_dict(state_dict=ckpt)
+    try:
+        model.load_state_dict(state_dict=ckpt)
+    except:
+        state_dict=ckpt["state_dict"]
+        new_state_dict=OrderedDict()
+        for key,value in state_dict.items():
+            name=key[7:]
+            new_state_dict[name]=value
+        model.load_state_dict(new_state_dict)
     model=model.to(device=device)
     return model
 #print(model)
