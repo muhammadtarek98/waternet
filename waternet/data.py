@@ -88,3 +88,13 @@ def transform(rgb) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     he = histeq(rgb)
 
     return wb, gc, he
+
+"""
+image=cv2.imread(filename="/home/muahmmad/projects/Image_enhancement/dataset/Enhancement_Dataset/7117_no_fish_2_f000000.jpg")
+wb,gc,he=transform(rgb=image)
+cv2.imshow(winname="org_image",mat=image)
+cv2.imshow(winname="wb",mat=wb)
+cv2.imshow(winname="gc",mat=gc)
+cv2.imshow(winname="he",mat=he)
+cv2.waitKey(0)
+cv2.destroyAllWindows()"""
