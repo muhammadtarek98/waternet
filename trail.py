@@ -5,21 +5,13 @@ from waternet.waternet.net import WaterNet
 from waternet.waternet.data import transform
 import numpy as np
 from matplotlib import pyplot as plt
-def load_model(device:torch.device,model_type,
+def load_model(device:torch.device,
                ckpt_dir:str="/home/muahmmad/projects/Image_enhancement/waternet/weights/waternet_exported_state_dict-daa0ee.pt"):
-    model=model_type()
+    model=WaterNet()
     ckpt=torch.load(f=ckpt_dir,
                     map_location=device,weights_only=True)
     print(ckpt.keys())
-    try:
-        model.load_state_dict(state_dict=ckpt)
-    except:
-        state_dict=ckpt["state_dict"]
-        new_state_dict=OrderedDict()
-        for key,value in state_dict.items():
-            name=key[7:]
-            new_state_dict[name]=value
-        model.load_state_dict(new_state_dict)
+    model.load_state_dict(state_dict=ckpt)
     model=model.to(device=device)
     return model
 #print(model)
@@ -45,10 +37,11 @@ def transform_image(img):
             "he":torch.unsqueeze(input=he_tensor,dim=0)}
 def run():
     device = torch.device(device="cuda" if torch.cuda.is_available() else "cpu")
-    model = load_model(device, WaterNet)
+    model = load_model(device)
     model.eval()
     image = cv2.imread(
         filename="/home/muahmmad/projects/Image_enhancement/Enhancement_Dataset/9898_no_fish_f000130.jpg")
+
     tensors = transform_image(img=image)
     raw_image_tensor = tensors["X"]
     wb_tensor = tensors["wb"]
@@ -69,8 +62,5 @@ def run():
     cv2.imshow(winname="pred", mat=output)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-"""
+
 run()
-"""
-
-
