@@ -8,13 +8,12 @@ from matplotlib import pyplot as plt
 def load_model(device:torch.device,
                ckpt_dir:str="/home/muahmmad/projects/Image_enhancement/waternet/weights/waternet_exported_state_dict-daa0ee.pt"):
     model=WaterNet()
-    ckpt=torch.load(f=ckpt_dir,
-                    map_location=device,weights_only=True)
+    ckpt=torch.load(f=ckpt_dir,map_location=device,weights_only=True)
     print(ckpt.keys())
     model.load_state_dict(state_dict=ckpt)
     model=model.to(device=device)
     return model
-#print(model)
+
 def transform_array_to_image(arr):
     arr=np.clip(a=arr,a_min=0,a_max=1)
     arr=(arr*255.0).astype(np.uint8)
@@ -62,5 +61,6 @@ def run():
     cv2.imshow(winname="pred", mat=output)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
+"""
 run()
+"""
