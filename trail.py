@@ -61,6 +61,8 @@ def run():
     cv2.imshow(winname="pred", mat=output)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
 """
 run()
 """
