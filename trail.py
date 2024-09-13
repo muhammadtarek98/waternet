@@ -38,8 +38,8 @@ def run():
     model = load_model(device)
     model.eval()
     image = cv2.imread(
-        filename="/home/muahmmad/projects/Image_enhancement/Enhancement_Dataset/9898_no_fish_f000130.jpg")
-
+        filename="/home/muahmmad/projects/Image_enhancement/dataset/bad_visibility_images/264_cam1left_2016_10_21_07_10_15.jpg")
+    image=cv2.cvtColor(src=image,code=cv2.COLOR_BGR2RGB)
     tensors = transform_image(img=image)
     raw_image_tensor = tensors["X"]
     wb_tensor = tensors["wb"]
@@ -56,12 +56,12 @@ def run():
     pred = torch.permute(input=pred, dims=(1, 2, 0))
     output = pred.detach().cpu().numpy()
     output = transform_array_to_image(output)
-    cv2.imshow(winname="org", mat=image)
-    cv2.imshow(winname="pred", mat=output)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.imshow(winname="org", mat=image)
+    #cv2.imshow(winname="pred", mat=output)
+    cv2.imwrite(filename="264_cam1left_2016_10_21_07_10_15.jpg",img=output)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
 
 
-"""
+
 run()
-"""
