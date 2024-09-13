@@ -4,7 +4,6 @@ from collections import OrderedDict
 from waternet.waternet.net import WaterNet
 from waternet.waternet.data import transform
 import numpy as np
-from matplotlib import pyplot as plt
 def load_model(device:torch.device,
                ckpt_dir:str="/home/muahmmad/projects/Image_enhancement/waternet/weights/waternet_exported_state_dict-daa0ee.pt"):
     model=WaterNet()
